@@ -1,16 +1,24 @@
+class MyError extends Error {
+  constructor(status, message) {
+		super(message);
+		this.status = status;
+    this.name = this.constructor.name;
+  }
+}
 
-const errorMessages = {
-	400: 'Bad Request',
-	401: 'Unauthorized',
-	403: 'Forbidden',
-	404: 'Not Found',
-	409: 'Conflict',
-};
+class HttpError extends MyError { }
 
-const HttpError = (status, message = errorMessages[status]) => {
-	const error = new Error(message);
-	error.status = status;
-	return error;
-};
+class ValidationError extends HttpError {
+	constructor(message) {
+		super(400, message);
+	}
+}
 
-module.exports = HttpError;
+class FieldRequiredError extends ValidationError {
+  constructor(fieldName) {
+    super(`missing required ${fieldName} field`);
+    this.fieldName = fieldName;
+  }
+}
+
+module.exports = { HttpError, ValidationError, FieldRequiredError };
