@@ -1,5 +1,13 @@
+const errorMessages = {
+	400: 'Bad Request',
+	401: 'Unauthorized',
+	403: 'Forbidden',
+	404: 'Not Found',
+	409: 'Conflict',
+}
+
 class MyError extends Error {
-  constructor(status, message) {
+  constructor(status, message = errorMessages[status]) {
 		super(message);
 		this.status = status;
     this.name = this.constructor.name;
