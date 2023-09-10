@@ -7,7 +7,6 @@ const { ctrlWrapper } = require('../decorators');
 
 const { SECRET_KEY } = process.env;
 
-//signup
 const register = async (req, res) => {
     const { email, password, subscription } = req.body;
     const user = await User.findOne({ email });
@@ -27,7 +26,6 @@ const register = async (req, res) => {
     });
 };
 
-//signin
 const login = async (req, res) => {
     const { email, password, subscription } = req.body;
 
@@ -64,7 +62,6 @@ const login = async (req, res) => {
     });
 };
 
-//current user
 const getCurrent = async (req, res) => {
     const { subscription, email } = req.user;
 
@@ -74,7 +71,6 @@ const getCurrent = async (req, res) => {
     });
 };
 
-//logout
 const logout = async (req, res) => {
     const {_id} = req.user;
     await User.findByIdAndUpdate(_id, { token: '' });
