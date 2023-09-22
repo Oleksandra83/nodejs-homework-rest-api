@@ -13,12 +13,17 @@ const {
     getCurrent,
     logout,
     updateSubscription,
-    updateAvatar
+    updateAvatar,
+    verifyEmail,
+    resendVerify,
 } = require('../../controllers/auth-controller');
+const { verify } = require('jsonwebtoken');
 
 const router = Router();
 
 router.post('/register', validateBody(registerSchema), register);
+router.get('/verify/:verificationToken', verifyEmail);
+router.post('/verify', validateBody(userEmailSchema), resendVerify);
 router.post('/login', validateBody(loginSchema), login);
 router.get('/current', authenticate, getCurrent);
 router.post('/logout', authenticate, logout);
