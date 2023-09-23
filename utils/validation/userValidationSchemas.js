@@ -1,6 +1,7 @@
 const Joi = require('joi');
 
 const emailRegexp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+const subscriptionList = ['starter', 'pro', 'business'];
 
 const registerSchema = Joi.object({
 	name: Joi.string().required(),
