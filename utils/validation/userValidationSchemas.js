@@ -1,11 +1,19 @@
 const Joi = require('joi');
 
 const emailRegexp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+const subscriptionList = ['starter', 'pro', 'business'];
 
 const registerSchema = Joi.object({
 	name: Joi.string().required(),
 	email: Joi.string().pattern(emailRegexp).required(),
 	password: Joi.string().min(6).required(),
+});
+
+const userEmailSchema = Joi.object({
+  email: Joi.string()
+  .pattern(emailRegexp)
+  .required()
+  .messages({'any.required': 'Missing required field email'}),
 });
 
 const loginSchema = Joi.object({
@@ -26,4 +34,9 @@ const updateSubscriptionSchema = Joi.object({
     }),
 });
 
-module.exports = { registerSchema, loginSchema, updateSubscriptionSchema };
+module.exports = { 
+  registerSchema, 
+  userEmailSchema, 
+  loginSchema, 
+  updateSubscriptionSchema 
+};

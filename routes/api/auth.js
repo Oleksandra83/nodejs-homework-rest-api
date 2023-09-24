@@ -4,6 +4,7 @@ const { authenticate, upload } = require('../../middlewares');
 const { validateBody } = require('../../decorators');
 const {
     registerSchema,
+    userEmailSchema,
     loginSchema,
     updateSubscriptionSchema,
 } = require('../../utils/validation/userValidationSchemas');
@@ -13,12 +14,16 @@ const {
     getCurrent,
     logout,
     updateSubscription,
-    updateAvatar
+    updateAvatar,
+    verify,
+    resendVerify,
 } = require('../../controllers/auth-controller');
 
 const router = Router();
 
 router.post('/register', validateBody(registerSchema), register);
+router.get('/verify/:verificationToken', verify);
+router.post('/verify', validateBody(userEmailSchema), resendVerify);
 router.post('/login', validateBody(loginSchema), login);
 router.get('/current', authenticate, getCurrent);
 router.post('/logout', authenticate, logout);
